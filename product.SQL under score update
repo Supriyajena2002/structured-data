@@ -1,0 +1,59 @@
+--Requirement/UseCase
+--Generate a monthly Report with product category ranking
+--Approaches 
+--Create product Table with the required column names as per business expectation
+--Prepared mock data for unit testing & Insert the same in product table
+--Use Group BY on column sellingyear & sellingmonth to bring the respected records together to apply rank function
+--Choose to use dense_rank to get the desired output
+
+CREATE TABLE product(
+product int,
+productName varchar(255),
+category varchar(255),
+sellingdate varchar(255),
+sellingday varchar(255),
+sellingmonth varchar(255),
+sellingyear varchar(255),
+totalnoofsells int
+);
+
+INSERT INTO product
+VALUES (1,'lipstick','makeup','01/02/2022','mon','feb','2022','10');
+INSERT INTO product
+VALUES (2,'shampoo','helthcare','30/03/2022','sun','mar','2022','23');
+INSERT INTO product
+VALUES (3,'hairoil','helthcare','04/05/2022','wed','may','2022','10');
+INSERT INTO product
+VALUES (4,'iron','household','01/06/2022','mon','june','2022','14');
+INSERT INTO product
+
+VALUES (5,'soap','helthcare','30/03/2022','sun','mar','2022','13');
+INSERT INTO product
+VALUES (6,'LIPloss','helthcare','04/05/2022','wed','may','2022','10');
+INSERT INTO product
+VALUES (7,'track pants','outdoors','05/01/2022','mon','jan','2022','8');
+INSERT INTO product
+VALUES (8,'mobile holder','personalcare','13/03/2023','sun','mar','2022','13');
+INSERT INTO product
+VALUES (9,'lamp','household','06/03/2022','wed','ma3','2022','17');
+INSERT INTO product
+VALUES (10,'bodycare','helathcare','04/03/2022','mon','june','2022','14');
+INSERT INTO product
+VALUES (11,'soap','helthcare','30/03/2022','sun','mar','2022','13');
+INSERT INTO product
+VALUES (12,'leptopbages','personalcare','02/05/2022','wed','may','2022','10');
+
+
+SELECT sellingyear,sellingmonth,
+RANK() over(PARTITION BY sellingyear,sellingmonth  ORDER BY totalnoofsells DESC) RANk
+FROM product
+GROUP BY sellingyear,sellingmonth,totalnoofsells
+ORDER BY sellingyear,sellingmonth,totalnoofsells; 
+
+
+ 
+
+
+
+
+
